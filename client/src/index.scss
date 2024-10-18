@@ -1,0 +1,90 @@
+@use "./assets/styles/__variables.scss" as *;
+
+/* 
+========================================================
+                    Base & Reset 
+========================================================
+*/
+
+body {
+  color: $color-text;
+  background-color: $bg-body;
+  margin: 0 auto;
+  font-size: $text-base;
+  font-family: $font-text;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  // border:1px solid red;
+}
+
+*::selection {
+  background: $product-main;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1566px;
+  padding: 0 1rem;
+
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+main {
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.svg-action {
+  svg {
+    transition: fill linear .2s;
+    &:hover {
+      fill: $product-main
+    }
+  }
+}

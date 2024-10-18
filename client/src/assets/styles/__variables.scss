@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@300;400;700&family=Inria+Sans:ital,wght@0,400;0,700;1,300&family=Inter:wght@300;700&family=Karantina:wght@300;400;700&display=swap');
+
+
+
+//////////////////////////////////////
+//              COLORS              //
+//////////////////////////////////////
+
+$beige:                 #a28f6a;
+$deep-blue:             #171b24;
+$riche-green:           #323d24;
+$deep-green:            #292c1e;
+$khaki-green:           #515e3c;
+
+$product-main:          #FF6B00;
+
+$noir:                  #000;
+$blanche:               #fff;
+
+     // BG
+$bg-body:               $deep-green;
+$bg-navbar:             $riche-green;
+
+$bg-card-dark:          $khaki-green;
+$bg-card-light:         $beige;
+
+$bg-input:              $beige;
+
+$bg-btn-prm:            $product-main;
+$bg-btn-prm-hover:      darken($product-main, 5%);
+
+        // Side
+$bg-menu:               $deep-green;
+$bg-menu-list:          $beige;
+$bg-menu-item:          $riche-green;
+$bg-menu-item-hover:    $deep-green;
+
+        // Map
+$bg-map:                $deep-blue;
+
+    // FONTS
+
+$color-title:           lighten($product-main, 20%);
+$color-text:            $blanche;
+$color-text-dark:       $noir;
+$color-error:           $product-main;
+
+$color-input:           $blanche;
+$color-placeholder:     lighten($noir, 30%);
+
+        // Nav-link
+$color-navlink:         $blanche;
+$color-navlink-hover:   $product-main;
+
+        // Btn
+$color-btn-prm:         $blanche;
+
+        // Other
+$color-input:           $blanche;
+$color-input-placeholder:lighten($blanche, 30%);
+// $color-input-placeholder: color.adjust($blanche, $lightness: 30%);
+
+
+//////////////////////////////////////
+//              TEXT                //
+//////////////////////////////////////
+
+/*
+font-family: 'Alumni Sans', sans-serif;
+font-family: 'Inria Sans', sans-serif;
+font-family: 'Inter', sans-serif;
+font-family: 'Karantina', cursive;
+*/
+
+$font-suptitle:         'Inria Sans', sans-serif;
+$font-title:            'Karantina', cursive;
+$font-text:             'Alumni Sans', sans-serif;
+$font-link:             'Inter', sans-serif;
+
+    // SIZE
+$text-base:             16px;    // 1rem
+
+$text-xl:               8rem;    // 128px 
+$text-lg:               4rem;    // 64px
+$text-md:               2rem;    // 32px
+$text-sm:               1.25rem; // 24px
+$text-xs:               .75rem;  // 16px
+
+
+//////////////////////////////////////
+//           SCREEN SIZE            //
+//////////////////////////////////////
+
+        // Small small screen / phone small
+$screen-xs:             320px;
+$screen-xs-min:         $screen-xs;             // 320px
+$screen-phone:          $screen-xs-min;         // 320px
+        // Small screen / phone
+$screen-sm:             480px;
+$screen-sm-min:         $screen-sm;             // 480px
+$screen-tablet-small:   $screen-sm-min;         // 480px
+        // Medium screen / tablet
+$screen-md:             768px;
+$screen-md-min:         $screen-md;             // 768px
+$screen-tablet:          $screen-md-min;         // 768px
+        // Medium screen / desktop small
+$screen-lg:             992px;
+$screen-lg-min:         $screen-lg;             // 992px
+$screen-desktop-min:    $screen-lg-min;         // 992px
+        // Large screen / desktop
+$screen-xl:             1200px;
+$screen-xl-min:         $screen-xl;             // 1200px
+$screen-desktop:        $screen-xl-min;         // 1200px
+        // Large screen / desktop wide
+$screen-xxl:            1440px;
+$screen-xxl-min:        $screen-xxl;            // 1440px
+$screen-desktop-wide:   $screen-xxl-min;        // 1440px
