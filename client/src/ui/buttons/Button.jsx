@@ -1,10 +1,14 @@
 import style from './button.module.scss';
 
-
 /**
- * Button component
+ * ### Button Component
  * 
- * @param {*} param0 
+ * @param {object} props
+ * @param {} props.children
+ * @param {} props.onClick
+ * @param {} props.className
+ * @param {} props.forwardRef
+ *  
  * @returns 
  */
 function Button({ children, onClick, className, forwardRef }) {

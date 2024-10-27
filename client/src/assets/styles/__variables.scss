@@ -1,55 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@300;400;700&family=Inria+Sans:ital,wght@0,400;0,700;1,300&family=Inter:wght@300;700&family=Karantina:wght@300;400;700&display=swap');
 
 
-
 //////////////////////////////////////
 //              COLORS              //
 //////////////////////////////////////
 
-$beige:                 #a28f6a;
-$deep-blue:             #171b24;
-$riche-green:           #323d24;
-$deep-green:            #292c1e;
-$khaki-green:           #515e3c;
+$beige:                 #eae1cb;
+$gold:                  #d3a222;
+$blue:                  #034460;
 
 $product-main:          #FF6B00;
 
-$noir:                  #000;
+$noir:                  #171717;
 $blanche:               #fff;
 
      // BG
-$bg-body:               $deep-green;
-$bg-navbar:             $riche-green;
+$bg-body:               $beige;
+$bg-navbar:             $blue;
 
-$bg-card-dark:          $khaki-green;
+$bg-card-dark:          $blue;
 $bg-card-light:         $beige;
 
-$bg-input:              $beige;
+$bg-input:              $blanche;
 
 $bg-btn-prm:            $product-main;
 $bg-btn-prm-hover:      darken($product-main, 5%);
 
+$bg-navbar:             $blue;
+
         // Side
-$bg-menu:               $deep-green;
+$bg-menu:               $gold;
 $bg-menu-list:          $beige;
-$bg-menu-item:          $riche-green;
-$bg-menu-item-hover:    $deep-green;
+$bg-menu-item:          $gold;
+$bg-menu-item-hover:    $product-main;
 
         // Map
-$bg-map:                $deep-blue;
+$bg-map:                $noir;
 
     // FONTS
 
 $color-title:           lighten($product-main, 20%);
-$color-text:            $blanche;
-$color-text-dark:       $noir;
+$color-text:            $noir;
+$color-text-dark:       $blanche;
 $color-error:           $product-main;
 
-$color-input:           $blanche;
+$color-input:           $noir;
 $color-placeholder:     lighten($noir, 30%);
 
         // Nav-link
-$color-navlink:         $blanche;
+$color-navlink:         $gold;
 $color-navlink-hover:   $product-main;
 
         // Btn
@@ -60,6 +59,20 @@ $color-input:           $blanche;
 $color-input-placeholder:lighten($blanche, 30%);
 // $color-input-placeholder: color.adjust($blanche, $lightness: 30%);
 
+
+//////////////////////////////////////
+//             SPACES               //
+//////////////////////////////////////
+
+$input-margin:          0 0 1rem 0;
+
+$button-padding:        .375rem 2rem;
+
+//////////////////////////////////////
+//             RADIUS               //
+//////////////////////////////////////
+
+$radius-button:         5px;
 
 //////////////////////////////////////
 //              TEXT                //

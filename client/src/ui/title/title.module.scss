@@ -1,0 +1,9 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.title_main {
+  font-size: $text-lg;
+
+  @media (max-width: $screen-tablet) {
+    font-size: $text-md;
+  }
+}

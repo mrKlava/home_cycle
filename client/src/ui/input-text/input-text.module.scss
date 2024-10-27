@@ -1,0 +1,73 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.form_row {
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: $screen-tablet-small) {
+    flex-direction: column;
+    gap: 0;    
+  }
+
+  button {
+    align-self: flex-end;
+
+    @media (max-width: $screen-tablet-small) {
+      align-self: center;
+    }
+  }
+}
+
+.input {
+  &_text {
+    flex: 1;
+
+    margin: $input-margin;
+
+    label {
+      font-size: $text-sm;
+
+      @media (max-width: $screen-tablet) {
+        font-size: $text-base;
+      }
+    }
+  }
+
+  &_container {
+    display: flex;
+
+    background-color: $bg-input;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+
+    color: $color-input;
+    input {
+      width: 100%;
+      background: none;
+      border: none;
+      outline: none;
+
+
+      // padding: .325rem;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $color-placeholder;
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        
+        background: none;
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: $color-input;
+      }
+    }
+  }
+}

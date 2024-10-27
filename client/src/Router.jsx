@@ -1,52 +1,92 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
-import { useContext } from 'react'
-import { AuthContext } from './context/authContext'
 
-import { Login, Main, Register } from './pages'
+import { useAuthContext } from './hooks'
 
-/* Wrapper function to protect routes where user must be authenticated */
+import { AppLayout } from './layouts'
+
+import { LoginPage, HomePage, RegisterPage, MainPage, ProfilePage, BikesPage } from './pages'
+
+/**
+ * Wrapper function to protect routes where user must be authenticated
+ */
 const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useAuthContext()
 
   if (!currentUser) return <Navigate to="/login" />   // if user is auth -> redirect to /login
 
   return children
 }
 
-/* Wrapper function to protect routes from users authenticated */
+/**
+ * Wrapper function to protect routes from users authenticated
+ */
 const AuthRoute = ({ children }) => {
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useAuthContext()
 
-  if (currentUser) return <Navigate to="/" />       // if user is auth -> redirect to / 
+  if (currentUser) return <Navigate to="/app" />       // if user is auth -> redirect to / 
 
   return children
 }
 
-// create all routes and link them with correct Page components
+/**
+ * Rout Controller
+ */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />
-  },
-  {
-    path: "/main",
-    element: <ProtectedRoute><Main /></ProtectedRoute>
+    element: (
+      <AuthRoute>
+        <HomePage />
+      </AuthRoute>
+    )
   },
   {
     path: "/login",
-    element: <AuthRoute><Login /></AuthRoute>
+    element: (
+      <AuthRoute>
+        <LoginPage />
+      </AuthRoute>
+    )
   },
   {
     path: "/register",
-    element: <AuthRoute><Register /></AuthRoute>
+    element: (
+      <AuthRoute>
+        <RegisterPage />
+      </AuthRoute>
+    )
+  },
+  {
+    path: "/app",
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <MainPage />
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />
+      },
+      {
+        path: "bikes",
+        element: <BikesPage />
+      }
+    ]
   },
   {
     path: '*',
-    element: <Navigate to='/' />
+    element: <Navigate to='/home' />
   }
 ])
 
-// create router provider and import it in index.js
+/**
+ * ### Application Router
+ */
 const Router = ({ children }) => {
   return (
     <RouterProvider router={router}>
@@ -54,6 +94,5 @@ const Router = ({ children }) => {
     </RouterProvider>
   )
 }
-
 
 export default Router

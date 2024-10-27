@@ -1,0 +1,21 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background-color: $bg-navbar;
+
+  &_container {
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:1rem;
+
+    color: $color-navlink;
+  }
+}

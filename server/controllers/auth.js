@@ -1,42 +1,56 @@
-import { db } from "../db.js"
+import db from "../utils/db.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import UserQueries from "../queries/user.queries.js"
 
 
-/* Login */
+/**
+ * ### Login
+ * 
+ * Handles authentication of user by provided credentials
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
+export const login = async (req, res, next) => {
+  try {
+    // get credentials 
+    const { email, password } = req.body
 
-export const login = (req, res) => {
-  // check if user exists by email
-  const q = `
-  SELECT *
-  FROM users
-  WHERE user_id = ?;
-  `
+    // check if credentials are not empty
+    if (!email || !password) return res.status(200).json({ error: 'Must provide email and password' })
 
-  return res.status(200).json('test')
+    const user = await UserQueries.getUserByEmail(email)
 
-
-  db.query(q, [req.body.userId], (err, data) => {
-    if (err) return res.status(500).json(err)
-    if (!data.length) return res.status(404).json("User does not exist")
+    if (!user) return res.status(200).json({ error: 'Incorrect credentials' })
 
     // check password match
-    const checkPassword = bcrypt.compareSync(req.body.pwd, data[0].hash) // index 0 - array of users should have only one item
+    const checkPassword = bcrypt.compareSync(password, user.hash) // index 0 - array of users should have only one item
 
-    if (!checkPassword) return res.status(400).json("Wrong password or username")
+    if (!checkPassword) return res.status(200).json({ error: 'Incorrect password' })
 
-    const { hash, ...user } = data[0] // extract user object without hashed password
+    const { hash, ...currentUser } = user // extract user object without hashed password
     const token = jwt.sign({ id: user.user_id }, process.env.SECRET_KEY) // create token using user id 
 
-    res.cookie("accessToken", token, {
+    return res.cookie("accessToken", token, {
       httpOnly: true,
-    }).status(200).json(user) // return user object
-  })
+    }).status(200).json({ data: currentUser })
+
+  } catch (err) {
+    return next(err)
+  }
 }
 
-
-/* Register */
-
+/**
+ * ### Register
+ * 
+ * Creates new user in the system
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 export const register = (req, res) => {
   // create hashed password
   const salt = bcrypt.genSaltSync(10)
@@ -61,12 +75,18 @@ export const register = (req, res) => {
   })
 }
 
-
-/* Logout */
-
+/**
+ * ### Logout
+ * 
+ * Removes current user from session
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 export const logout = (req, res) => {
-  res.clearCookie("accessToken", { //remove token
+  return res.clearCookie("accessToken", { //remove token
     secure: true,
     sameSite: "none" // to be able to use different ports
-  }).status(200).json("Successfully logout")
+  }).status(200).json({message: "Successfully logged out"})
 }

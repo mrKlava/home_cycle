@@ -1,0 +1,36 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+
+.menu {
+  position: absolute;
+  z-index: 100;
+
+  top: 3rem;
+  right: -7rem;
+
+  height: 100vh;
+  width: 0;
+  
+  background-color: $bg-navbar;
+
+  transition: right .2s linear, width .2s linear;
+
+  &.active {
+    right: 0;
+
+    width: 30%;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      a {
+        display: block;
+
+        padding: 1rem 2rem;
+      }
+    }
+  }
+}

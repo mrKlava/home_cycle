@@ -1,13 +1,11 @@
 import 'dotenv/config'
+
 import express from "express"
 import cors from "cors"
 import cookieParser from 'cookie-parser'
-import jwt from "jsonwebtoken"
+import bodyParser from 'body-parser'
 
-import { db } from './db.js'
-
-import authRoutes from "./routes/auth.js"
-import usersRoutes from "./routes/users.js"
+import router from './routes/router.js'
 
 
 /* Variables */
@@ -15,10 +13,11 @@ import usersRoutes from "./routes/users.js"
 const PORT = process.env.PORT
 const ORIGIN_CLIENT = process.env.ORIGIN_CLIENT
 
+/* App instance */
+
 const app = express()
 
-
-/* Middleware */
+/* Middlewares */
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", true)
@@ -29,12 +28,22 @@ app.use(cors({ origin: ORIGIN_CLIENT }))
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
+// request log
+app.use((req, res, next) => {
+  const { method, url, params, body } = req
+  const date = new Date().toLocaleDateString('en-GB')
+
+  console.log(date, method, url, params, body)
+
+  next()
+})
 
 /* Routing */
 
-app.use("/api/auth",      authRoutes)
-app.use("/api/users",     usersRoutes)
+app.use('/api', router)
 
 /* Run server */
 

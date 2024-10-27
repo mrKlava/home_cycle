@@ -1,32 +1,61 @@
 import { createContext, useEffect, useState } from "react"
-import { httpRequest } from "../utils/axios"
+import { AuthServices } from "../services"
 
 // create context
 export const AuthContext = createContext()
 
-// create context provider
-export const AuthContextProvider = ({ children }) => {
+/**
+ * ### Auth Context Provider
+ * 
+ * Is used to manage currently connected user
+ */
+const AuthContextProvider = ({ children }) => {
 	// init current user state; if user is in local storage get user if not set to null
 	const [currentUser, setCurrentUser] = useState(
 		JSON.parse(localStorage.getItem("user") || null)
 	)
+	const [authError, setAuthError] = useState('')
+	const [authMessage, setAuthMessage] = useState('')
+	const [isAuthLoading, setIsAuthLoading] = useState(false)
 
 	/** Login 
 		* check users credentials and loges in user if they are correct
 		* if success updated states for current user and updated local storage
-		*
-		* @param {{str, str}} id user id, 
-		* @param {{str, str}} pwd user password, 
+		*	
+		* @param {object} cred user credentials, 
+		* @param {string} cred.email user email, 
+		* @param {string} cred.pwd user password, 
 		* @return {void}
 	*/
 	const login = async (cred) => {
 		try {
-			const resp = await httpRequest.post("/auth/login", cred, { withCredentials: true }) // make httpRequest 
-			console.log(resp.data) 		// log res
+			// const resp = await httpRequest.post("/auth/login", cred, { withCredentials: true }) // make httpRequest 
 
-			setCurrentUser(resp.data) 	// update state
+			setIsAuthLoading(true)
+			setAuthError('')
+			setAuthMessage('')
+
+			const { respData } = await AuthServices.login(cred)
+
+			const { data: user, error, message } = respData
+
+			if (user) { setCurrentUser(user) }
+
+			if (error) setAuthError(error)
+			if (message) setAuthMessage(message)
+
+			setIsAuthLoading(false)
+
+			// we can return error or message instead of using context
+
 		} catch (err) {
-			console.log(err)			// log err
+			setCurrentUser(null)
+			setAuthError('')
+			setAuthMessage('')
+
+			setIsAuthLoading(false)
+
+			throw err
 		}
 	}
 
@@ -60,7 +89,8 @@ export const AuthContextProvider = ({ children }) => {
 	*/
 	const logout = async () => {
 		try {
-			await httpRequest.post('/auth/logout')
+			await AuthServices.logout()
+
 			localStorage.setItem("user", null)
 
 			setCurrentUser(null)
@@ -81,6 +111,9 @@ export const AuthContextProvider = ({ children }) => {
 		<AuthContext.Provider value={
 			{
 				currentUser
+				, authError
+				, authMessage
+				, isAuthLoading
 				, login
 				, logout
 				, register
@@ -90,3 +123,5 @@ export const AuthContextProvider = ({ children }) => {
 		</AuthContext.Provider>
 	)
 }
+
+export default AuthContextProvider;

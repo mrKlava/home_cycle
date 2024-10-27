@@ -4,9 +4,9 @@
   &_prm {
     background-color: $bg-btn-prm;
 
-    padding: .375rem 2rem;
+    padding: $button-padding;
 
-    border-radius: 5px;
+    border-radius: $radius-button;
 
     transition: background linear .125s;
 

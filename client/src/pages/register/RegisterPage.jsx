@@ -1,14 +1,17 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-import { AuthContext } from "../../context/authContext"
+import { useAuthContext } from "../../hooks"
+import { Title } from "../../ui";
+import { LINKS, PAGES } from "../../constants";
 
-function Register() {
+function RegisterPage() {
   // init hooks
   const navigate = useNavigate()
 
   // init state
-  const { register } = useContext(AuthContext)
+  const { register } = useAuthContext();
+  
   const [ inputs, setInputs ] = useState({firstname: "", lastname: "", pwd: ""})
 
   // handle change of controlled inputs
@@ -33,8 +36,7 @@ function Register() {
   
   return (
     <div>
-      <Link to='/home'>home</Link>
-      <h1>Register</h1>
+      <Title>{PAGES.REGISTER.TITLE}</Title>
       <form>
         <input 
           name="firstname" 
@@ -57,9 +59,9 @@ function Register() {
 
         <input type="submit" value="submit" onClick={handleSubmit}/>
       </form>
-      <Link to='/login'>login</Link>
+      <Link to={LINKS.LOGIN.PATH}>{LINKS.LOGIN.TEXT}</Link>
     </div>
   )
 }
 
-export default Register
+export default RegisterPage

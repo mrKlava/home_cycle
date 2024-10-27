@@ -1,0 +1,71 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.form_row {
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: $screen-tablet-small) {
+    flex-direction: column;
+    gap: 0;    
+  }
+
+  button {
+    align-self: flex-end;
+
+    @media (max-width: $screen-tablet-small) {
+      align-self: center;
+    }
+  }
+}
+
+.input {
+  &_select {
+    flex: 1;
+
+    label {
+      font-size: $text-sm;
+
+      @media (max-width: $screen-tablet) {
+        font-size: $text-base;
+      }
+    }
+  }
+
+  &_container {
+    display: flex;
+
+    background-color: $bg-input;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+
+    color: $color-input;
+
+    select {
+      width: 100%;
+      background: none;
+      border: none;
+      outline: none;
+
+      background-color: $bg-card-light;
+
+      // padding: .325rem;
+
+      & option {
+        display: block;
+        padding: 1rem;
+
+        &:first-child {
+          color: $color-placeholder;
+        }
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $color-placeholder;
+      }
+    }
+  }
+}
