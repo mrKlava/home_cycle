@@ -8,15 +8,16 @@ import style from './button.module.scss';
  * @param {} props.onClick
  * @param {} props.className
  * @param {} props.forwardRef
+ * @param {boolean} props.isDisabled
  *  
  * @returns 
  */
-function Button({ children, onClick, className, forwardRef }) {
+function Button({ children, onClick, className, forwardRef, isDisabled }) {
   const classes = className ? className + `${style.btn_prm} ${className}` : style.btn_prm;
 
   return (
-    <button onClick={onClick} className={classes} ref={forwardRef}>
-      {children}
+    <button onClick={onClick} className={classes} ref={forwardRef} disabled={isDisabled} >
+      {typeof children === "string" ? children.toUpperCase() : children}
     </button>
   )
 }

@@ -1,6 +1,5 @@
 @use '../../assets/styles/__variables.scss' as *;
 
-
 .menu {
   position: absolute;
   z-index: 100;
@@ -26,10 +25,22 @@
     flex-direction: column;
 
     li {
+      .username {
+        padding: 1rem 2rem;
+        font-weight: 700;
+
+        border-bottom: 1px solid;
+      }
+
       a {
         display: block;
 
         padding: 1rem 2rem;
+
+        
+        &:hover {
+          background-color: $bg-nav-item-hover;
+        }
       }
     }
   }

@@ -1,0 +1,96 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.register {
+  background: url(/assets/img/bg/bg-register.jpg) no-repeat center fixed;
+  background-size: cover;
+
+  min-height: 100vh;
+  display: flex;
+
+  
+
+  &Child {
+    width: 100%;
+
+    &:first-child {
+      width: 40%;
+      @media (max-width: $screen-tablet) {
+        width: 0;
+      }
+    }
+
+    &:last-child {
+      width: 60%;
+      @media (min-width: $screen-tablet) {
+        backdrop-filter: invert(35%) saturate(50%) blur(30px);
+      }
+      @media (max-width: $screen-tablet) {
+        width: 100%;
+        margin: 0 1rem;
+      }
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &Card {
+
+    border-radius: $rad-card-lg;
+    padding: 2rem;
+
+    min-width: 100%;
+
+    @media (max-width: $screen-tablet) {
+      backdrop-filter: invert(35%) saturate(50%) blur(30px);
+    }
+  }
+}
+
+.form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  &Inputs {
+    width: 100%;
+
+    margin-bottom: 1rem;
+
+    &>* {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.login {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: .375rem;
+  gap: .275rem;
+
+  font-size: $text-sm;
+
+  &Link {
+    color: $color-link;
+    font-weight: 700;
+  }
+}
+
+.errorMessage {
+  text-align: center;
+}

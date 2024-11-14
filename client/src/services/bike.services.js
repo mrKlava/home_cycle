@@ -3,9 +3,10 @@ import { makeRequest } from "../utils/axios"
 const BASE_URL = '/bikes/'
 
 const BikeServices = {
-  async getUserBikes() {
+
+  async getBikes() {
     try {
-      const resp = await makeRequest({url: BASE_URL + 'user'})
+      const resp = await makeRequest({ url: BASE_URL })
 
       return resp
     } catch (err) {
@@ -13,17 +14,17 @@ const BikeServices = {
       throw err
     }
   },
-  async getUserBikeByID(id) {
+
+  async getBikeById(id) {
     try {
-      const resp = await makeRequest({url: BASE_URL + 'user/' + id})
+      const resp = await makeRequest({ url: BASE_URL + id })
 
       return resp
     } catch (err) {
       console.log(err)
       throw err
     }
-  }
-
+  },
 }
 
-export default BikeServices
+export default BikeServices;

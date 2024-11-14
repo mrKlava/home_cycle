@@ -7,11 +7,13 @@ import bodyParser from 'body-parser'
 
 import router from './routes/router.js'
 
+import { errorMiddleware, logRequestMiddleware } from './middlewares/index.js'
+
 
 /* Variables */
 
 const PORT = process.env.PORT
-const ORIGIN_CLIENT = process.env.ORIGIN_CLIENT
+const ORIGIN_CLIENT = process.env.ORIGIN_CLIENT ? process.env.ORIGIN_CLIENT.split(',') : [];
 
 /* App instance */
 
@@ -31,19 +33,14 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// request log
-app.use((req, res, next) => {
-  const { method, url, params, body } = req
-  const date = new Date().toLocaleDateString('en-GB')
-
-  console.log(date, method, url, params, body)
-
-  next()
-})
+app.use(logRequestMiddleware)
 
 /* Routing */
 
 app.use('/api', router)
+
+
+app.use(errorMiddleware)
 
 /* Run server */
 

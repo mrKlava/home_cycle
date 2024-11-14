@@ -1,32 +1,32 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-import { Button, Title } from '../../ui'
-
-import { PAGES } from '../../constants'
 import { useFetchData } from '../../hooks'
 import { BikeServices } from '../../services'
 
+import { Title, ButtonBikeNew } from '../../ui'
+
+import { LINKS, PAGES } from '../../constants'
+
 function BikesPage() {
-  const {data: bikes, isLoading} = useFetchData(BikeServices.getUserBikes)
+  const {data: bikes, isLoading} = useFetchData(BikeServices.getBikes)
 
-  const fetchBike = async () => {
-    try {
-      const {respData, status} = await BikeServices.getUserBikeByID(1)
-
-      console.log(respData.data)
-    } catch (error) {
-      
-    }
-  }
-
-  useEffect(() => {console.log(bikes)}, [bikes])
+  useEffect(() => {console.log(bikes)},[bikes])
   return (
     <main>
       <Title>{PAGES.BIKES.TITLE}</Title>
-
-      {isLoading ? <p>Loading</p> : bikes && bikes.map((bike) => <p key={bike.id}>{bike.name}</p>)}
-
-      <Button onClick={fetchBike}>get bike 1</Button>
+      <ButtonBikeNew />
+      { isLoading 
+      ? <p>Loading...</p> 
+      : (
+        bikes && bikes.map((bike) => {
+          return (
+            <Link key={bike.bike_id} to={LINKS.BIKE.PATH + "/" + bike.bike_id}>
+              {bike.nickname}
+            </Link>
+          )
+        })
+      )}
     </main>
   )
 }

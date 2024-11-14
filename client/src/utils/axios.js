@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { Axios } from "axios"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -16,24 +16,23 @@ export const httpRequest = axios.create({
 /**
  * Custom Axios function to make requests
  * 
- * @param {object} reqConfig
+ * @param {Axios.reqConfig} reqConfig
  * @param {'get' | 'post' | 'put'} reqConfig.method
  * @param {string} reqConfig.url
  * @param {object} reqConfig.data
  * @param {object} reqConfig.params
+ * @return {{data: {}, status:number}}
  */
 export const makeRequest = async (reqConfig) => {
-  const {method, url, params, data} = reqConfig
-
   try {
-    const {status, data: respData} = await httpRequest({
-      url,
-      method: method || 'get',
-      data,
-      params
-    })
+    const {status, data} = await httpRequest(reqConfig);
 
-    return {status, respData}
+    return {
+      data: data.data,
+      message: data.message || '',
+      error: data.error || '',
+      code: status
+    }
   } catch (error) {
     throw error
   }

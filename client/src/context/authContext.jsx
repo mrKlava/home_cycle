@@ -1,8 +1,8 @@
-import { createContext, useEffect, useState } from "react"
-import { AuthServices } from "../services"
+import { createContext, useEffect, useState } from "react";
+import { AuthServices } from "../services";
 
 // create context
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
 /**
  * ### Auth Context Provider
@@ -13,10 +13,10 @@ const AuthContextProvider = ({ children }) => {
 	// init current user state; if user is in local storage get user if not set to null
 	const [currentUser, setCurrentUser] = useState(
 		JSON.parse(localStorage.getItem("user") || null)
-	)
-	const [authError, setAuthError] = useState('')
-	const [authMessage, setAuthMessage] = useState('')
-	const [isAuthLoading, setIsAuthLoading] = useState(false)
+	);
+	const [authError, setAuthError] = useState('');
+	const [authMessage, setAuthMessage] = useState('');
+	const [isAuthLoading, setIsAuthLoading] = useState(false);
 
 	/** Login 
 		* check users credentials and loges in user if they are correct
@@ -31,34 +31,31 @@ const AuthContextProvider = ({ children }) => {
 		try {
 			// const resp = await httpRequest.post("/auth/login", cred, { withCredentials: true }) // make httpRequest 
 
-			setIsAuthLoading(true)
-			setAuthError('')
-			setAuthMessage('')
+			setIsAuthLoading(true);
+			setAuthError('');
+			setAuthMessage('');
 
-			const { respData } = await AuthServices.login(cred)
+			const { data: user, error, message } = await AuthServices.login(cred);
 
-			const { data: user, error, message } = respData
+			if (user) setCurrentUser(user);
 
-			if (user) { setCurrentUser(user) }
+			if (error) setAuthError(error);
+			if (message) setAuthMessage(message);
 
-			if (error) setAuthError(error)
-			if (message) setAuthMessage(message)
-
-			setIsAuthLoading(false)
+			setIsAuthLoading(false);
 
 			// we can return error or message instead of using context
 
 		} catch (err) {
-			setCurrentUser(null)
-			setAuthError('')
-			setAuthMessage('')
+			setCurrentUser(null);
+			setAuthError('');
+			setAuthMessage('');
 
-			setIsAuthLoading(false)
+			setIsAuthLoading(false);
 
-			throw err
+			throw err;
 		}
 	}
-
 
 	/** Register 
 		* create new user if success return true if failed return false
@@ -70,14 +67,30 @@ const AuthContextProvider = ({ children }) => {
 	*/
 	const register = async (cred) => {
 		try {
-			const resp = await httpRequest.post("/auth/register", cred)
-			console.log(resp.data) 		// log resp
+			setIsAuthLoading(true);
+			setAuthError('');
 
-			return true
+			const { error } = await AuthServices.register(cred);
+
+			setIsAuthLoading(false);
+
+			// if we failed to created user
+			if (error) {
+				setAuthError(error);
+				
+				return false
+			}
+			
+			// if we successfully created user
+			return true;
+
 		} catch (err) {
-			console.log(err)			// log err
+			setCurrentUser(null);
+			setAuthError('');
 
-			return false
+			setIsAuthLoading(false);
+
+			throw err;
 		}
 	}
 
@@ -89,13 +102,13 @@ const AuthContextProvider = ({ children }) => {
 	*/
 	const logout = async () => {
 		try {
-			await AuthServices.logout()
+			await AuthServices.logout();
 
-			localStorage.setItem("user", null)
+			localStorage.setItem("user", null);
 
-			setCurrentUser(null)
+			setCurrentUser(null);
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
 	}
 
@@ -103,8 +116,8 @@ const AuthContextProvider = ({ children }) => {
 
 	// update user data in local storage on change of state
 	useEffect(() => {
-		localStorage.setItem("user", JSON.stringify(currentUser))
-	}, [currentUser])
+		localStorage.setItem("user", JSON.stringify(currentUser));
+	}, [currentUser]);
 
 	// return context
 	return (

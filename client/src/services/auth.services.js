@@ -1,6 +1,6 @@
 import { makeRequest } from "../utils/axios"
 
-const BASE_URL = '/auth/'
+const BASE_URL = '/auth'
 
 /**
  * ### Auth Services
@@ -20,17 +20,51 @@ const AuthServices = {
   async login(cred) {
     try {
       const resp = await makeRequest({
-        url: BASE_URL + 'login',
+        url: `${BASE_URL}/login`,
         method: 'post',
         data: cred
-      })
+      });
       
-      return resp
+      return resp;
     } catch (err) {
-      console.log(err)
-      throw err
+      console.log(err);
+
+      throw err;
     }
   },
+  /**
+   * ### Register
+   * 
+   * Try to create new user
+   * 
+   * @param {object} inputs 
+   * @param {string} inputs.firstname
+   * @param {string} inputs.lastname
+   * @param {string} inputs.email
+   * @param {number} inputs.country
+   * @param {number} inputs.city
+   * @param {string} inputs.addressOne
+   * @param {string} inputs.addressTwo
+   * @param {string} inputs.zip
+   * @param {string} inputs.password
+   * @param {string} inputs.rePassword
+   */
+  async register(inputs) {
+    try {
+      const resp = await makeRequest({
+        url: `${BASE_URL}/register`,
+        method: 'post',
+        data: inputs
+      });
+      
+      return resp;
+    } catch (err) {
+      console.log(err);
+
+      throw err;
+    }
+  },
+  
   /**
    * ### Logout
    * 
@@ -39,16 +73,17 @@ const AuthServices = {
   async logout() {
     try {
       const resp = await makeRequest({
-        url: BASE_URL + 'logout',
+        url: `${BASE_URL}/logout`,
         method: 'post'
-      })
+      });
       
-      return resp
+      return resp;
     } catch (err) {
-      console.log(err)
-      throw err
+      console.log(err);
+
+      throw err;
     }
   },
 }
 
-export default AuthServices
+export default AuthServices;

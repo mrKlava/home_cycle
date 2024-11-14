@@ -11,6 +11,7 @@ const UserQueries = {
    */
   async getUsers() {
     const q = `SELECT * FROM users;`
+
     try {
       const [rows] = await db(q)
 
@@ -28,7 +29,8 @@ const UserQueries = {
     const q = `
     SELECT * 
     FROM users
-    WHERE id = ?;`
+    WHERE user_id = ?;`
+
     try {
       const [rows] = await db(q, id)
 
@@ -47,6 +49,7 @@ const UserQueries = {
     SELECT * 
     FROM users
     WHERE email = ?;`
+
     try {
       const [rows] = await db(q, email)
 
@@ -54,9 +57,46 @@ const UserQueries = {
     } catch (err) {
       throw err
     }
-  }
+  },
+  /**
+   * Create new user
+   * @param {string} email 
+   * @returns {object} returns user
+   */
+  async createUser(
+    email
+    , firstname
+    , lastname
+    , hash
+    , city
+    , zip
+    , addressOne
+    , addressTwo
+  ) {
+    const q = `
+    INSERT users 
+    (email, name, surname, hash, city_id, zip_code, address_one, address_two)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?); `
+
+    try {
+      const [rows] = await db(q, [   
+        email
+        , firstname
+        , lastname
+        , hash
+        , city
+        , zip
+        , addressOne
+        , addressTwo=null
+      ])
+
+      return rows
+    } catch (err) {
+      throw err
+    }
+  },
 }
 
-// Object.freeze(UserQueries)
+Object.freeze(UserQueries);
 
-export default UserQueries
+export default UserQueries;

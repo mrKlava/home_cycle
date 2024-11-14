@@ -3,10 +3,12 @@ const PAGES = {
     'TITLE': 'home'
   },
   'LOGIN': {
-    'TITLE': 'login'
+    'TITLE': 'login',
+    'CALL_ACTION_REGISTER': 'Or if you do not have account you can',
   },
   'REGISTER': {
-    'TITLE': 'register'
+    'TITLE': 'register',
+    'CALL_ACTION_LOGIN': 'Or if you have account you can',
   },
   'PROFILE': {
     'TITLE': 'profile'
@@ -16,6 +18,24 @@ const PAGES = {
   },
   'BIKES': {
     'TITLE': 'my bikes'
+  },
+  'BIKE': {
+    'TITLE': 'bike'
+  },
+  'BIKE_NEW': {
+    'TITLE': 'Add new bike'
+  },
+  'INTERVENTIONS': {
+    'TITLE': 'interventions'
+  },
+  'INTERVENTION': {
+    'TITLE': 'intervention'
+  },
+  'INVOICES': {
+    'TITLE': 'invoices'
+  },
+  'INVOICE': {
+    'TITLE': 'invoice'
   },
 }
 

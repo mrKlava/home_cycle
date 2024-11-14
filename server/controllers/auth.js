@@ -1,7 +1,8 @@
-import db from "../utils/db.js"
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-import UserQueries from "../queries/user.queries.js"
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+import { UserQueries } from "../queries/index.js";
+import { RESPONSES } from "../constants/index.js";
 
 
 /**
@@ -17,29 +18,34 @@ import UserQueries from "../queries/user.queries.js"
 export const login = async (req, res, next) => {
   try {
     // get credentials 
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     // check if credentials are not empty
-    if (!email || !password) return res.status(200).json({ error: 'Must provide email and password' })
+    if (!email || !password) return res.status(200).json({ error: RESPONSES.ERRORS.PROVIDE_CREDENTIALS });
 
-    const user = await UserQueries.getUserByEmail(email)
+    const user = await UserQueries.getUserByEmail(email);
 
-    if (!user) return res.status(200).json({ error: 'Incorrect credentials' })
+    if (!user) return res.status(200).json({ error: RESPONSES.ERRORS.INCORRECT_CREDENTIALS });
 
     // check password match
-    const checkPassword = bcrypt.compareSync(password, user.hash) // index 0 - array of users should have only one item
+    const checkPassword = bcrypt.compareSync(password, user.hash); // index 0 - array of users should have only one item
 
-    if (!checkPassword) return res.status(200).json({ error: 'Incorrect password' })
+    if (!checkPassword) return res.status(200).json({ error: RESPONSES.ERRORS.INCORRECT_PASSWORD });
 
     const { hash, ...currentUser } = user // extract user object without hashed password
-    const token = jwt.sign({ id: user.user_id }, process.env.SECRET_KEY) // create token using user id 
+    const token = jwt.sign({ id: user.user_id, role: 'client' }, process.env.SECRET_JWT, { expiresIn: '1day' }); // create token using user id 
 
     return res.cookie("accessToken", token, {
+      secure: true,
       httpOnly: true,
-    }).status(200).json({ data: currentUser })
+      sameSite: "lax",
+      domain: "localhost",
+      maxAge: 3600 * 1000 * 24,
+
+    }).status(200).json({ data: currentUser, message: RESPONSES.MESSAGES.LOGIN_SUCCESS });
 
   } catch (err) {
-    return next(err)
+    return next(err);
   }
 }
 
@@ -51,28 +57,62 @@ export const login = async (req, res, next) => {
  * @param {*} req 
  * @param {*} res 
  */
-export const register = (req, res) => {
-  // create hashed password
-  const salt = bcrypt.genSaltSync(10)
-  const hash = bcrypt.hashSync(req.body.pwd, salt)
+export const register = async (req, res, next) => {
+  try {
+    // get credentials 
+    const {
+      firstname
+      , lastname
+      , email
+      , country
+      , city
+      , addressOne
+      , addressTwo
+      , zip
+      , password
+      , rePassword
+    } = req.body;
 
-  // create new user
-  const q = `
-  INSERT INTO users (firstname, lastname, hash)
-  VALUES (?);
-`
+    // check if credentials are not empty
+    if (
+      !firstname
+      || !lastname
+      || !email
+      || !country
+      || !city
+      || !addressOne
+      || !zip
+      || !password
+      || !rePassword
+    ) return res.status(200).json({ error: RESPONSES.ERRORS.MISSING_PARAM });
 
-  const params = [
-    req.body.firstname,
-    req.body.lastname,
-    hash
-  ]
+    // check if user exists
+    const user = await UserQueries.getUserByEmail(email);
+    if (user) return res.status(200).json({ error: RESPONSES.ERRORS.USER_EXISTS });
 
-  db.query(q, [params], (err, data) => {
-    if (err) return res.status(500).json(err)
+    // create hashed password
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
 
-    return res.status(200).json("User has been created")
-  })
+    // insert user to DB
+    const newUser = await UserQueries.createUser(
+      email
+      , firstname
+      , lastname
+      , hash
+      , city
+      , zip
+      , addressOne
+      , addressTwo
+    );
+    
+    console.log(newUser)
+
+    return res.status(200).json({ data: newUser.insertId, message: RESPONSES.MESSAGES.USER_CREATED }) 
+  } catch (err) {
+    return next(err);
+  }
+
 }
 
 /**
@@ -88,5 +128,5 @@ export const logout = (req, res) => {
   return res.clearCookie("accessToken", { //remove token
     secure: true,
     sameSite: "none" // to be able to use different ports
-  }).status(200).json({message: "Successfully logged out"})
+  }).status(200).json({ message: RESPONSES.MESSAGES.LOGOUT_SUCCESS })
 }

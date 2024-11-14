@@ -1,4 +1,4 @@
-@use '../../assets/styles/__variables.scss' as *;
+@use '../../../assets/styles/__variables.scss' as *;
 
 .form_row {
   display: flex;
@@ -33,8 +33,8 @@
     display: flex;
 
     background-color: $bg-input;
-    padding: .5rem 1rem;
-    border-radius: 5px;
+    padding: $pad-input;
+    border-radius: $rad-input;
 
     textarea {
       width: 100%;
@@ -52,7 +52,7 @@
       }
 
       &::placeholder {
-        color: $color-placeholder;
+        color: $color-input-placeholder;
       }
     }
   }

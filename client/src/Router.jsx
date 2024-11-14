@@ -2,9 +2,9 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 
 import { useAuthContext } from './hooks'
 
-import { AppLayout } from './layouts'
+import { AppLayout, HomeLayout } from './layouts'
 
-import { LoginPage, HomePage, RegisterPage, MainPage, ProfilePage, BikesPage } from './pages'
+import { LoginPage, HomePage, RegisterPage, MainPage, ProfilePage, InterventionsPage, InterventionPage, BikesPage, BikePage, InvoicesPage, InvoicePage, BikeNewPage } from './pages';
 
 /**
  * Wrapper function to protect routes where user must be authenticated
@@ -36,26 +36,25 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <AuthRoute>
-        <HomePage />
+        <HomeLayout />
       </AuthRoute>
-    )
+    ),
+    children: [
+      {
+        index: true,
+        element: <HomePage />
+      },
+      {
+        path: "/login",
+        element: <LoginPage />
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />
+      },
+    ]
   },
-  {
-    path: "/login",
-    element: (
-      <AuthRoute>
-        <LoginPage />
-      </AuthRoute>
-    )
-  },
-  {
-    path: "/register",
-    element: (
-      <AuthRoute>
-        <RegisterPage />
-      </AuthRoute>
-    )
-  },
+
   {
     path: "/app",
     element: (
@@ -69,18 +68,57 @@ const router = createBrowserRouter([
         element: <MainPage />
       },
       {
-        path: "profile",
+        path: "profile/:id",
         element: <ProfilePage />
       },
       {
         path: "bikes",
-        element: <BikesPage />
-      }
+        children: [
+          {
+            index: true,
+            element: <BikesPage />
+          },
+          {
+            path: "new",
+            element: <BikeNewPage />
+          },
+          {
+            path: ":id",
+            element: <BikePage />
+          }
+        ]
+      },
+      {
+        path: "interventions",
+        children: [
+          {
+            index: true,
+            element: <InterventionsPage />
+          },
+          {
+            path: ":id",
+            element: <InterventionPage />
+          }
+        ]
+      },
+      {
+        path: "invoices",
+        children: [
+          {
+            index: true,
+            element: <InvoicesPage />
+          },
+          {
+            path: ":id",
+            element: <InvoicePage />
+          }
+        ]
+      },
     ]
   },
   {
     path: '*',
-    element: <Navigate to='/home' />
+    element: <Navigate to='/' />
   }
 ])
 

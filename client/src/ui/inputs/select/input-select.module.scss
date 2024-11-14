@@ -1,4 +1,4 @@
-@use '../../assets/styles/__variables.scss' as *;
+@use '../../../assets/styles/__variables.scss' as *;
 
 .form_row {
   display: flex;
@@ -35,8 +35,8 @@
     display: flex;
 
     background-color: $bg-input;
-    padding: .5rem 1rem;
-    border-radius: 5px;
+    padding: $pad-input;
+    border-radius: $rad-input;
 
     color: $color-input;
 
@@ -46,7 +46,7 @@
       border: none;
       outline: none;
 
-      background-color: $bg-card-light;
+      background-color: $bg-input;
 
       // padding: .325rem;
 
@@ -55,7 +55,7 @@
         padding: 1rem;
 
         &:first-child {
-          color: $color-placeholder;
+          color: $color-input-placeholder;
         }
       }
 
@@ -64,7 +64,7 @@
       }
 
       &::placeholder {
-        color: $color-placeholder;
+        color: $color-input-placeholder;
       }
     }
   }

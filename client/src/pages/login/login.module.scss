@@ -1,0 +1,71 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.login {
+  background: url(/assets/img/bg/bg-login.jpg) no-repeat center fixed;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 100vh;
+
+  &Inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &Card {
+    max-width: 600px;
+    width: 100%;
+
+    border-radius: $rad-card-lg;
+    padding: 2rem;
+
+    backdrop-filter: invert(5%) saturate(100%) blur(20px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  &Input {
+    width: 100%;
+  }
+}
+
+.register {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  gap: .275rem;
+
+  font-size: $text-sm;
+
+  &Link {
+    color: $color-link;
+    font-weight: 700;
+  }
+}

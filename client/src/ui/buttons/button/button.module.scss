@@ -1,0 +1,21 @@
+@use '../../../assets/styles/__variables.scss' as *;
+
+.btn {
+  &_prm {
+    background-color: $bg-btn-prm;
+
+    padding: $pad-button;
+
+    border-radius: $rad-button;
+
+    transition: background linear .125s;
+
+    &:hover {
+      background-color: $bg-btn-prm-hover;
+    }
+
+    &:disabled {
+      background-color: $bg-btn-prm-disabled;
+    }
+  }
+}

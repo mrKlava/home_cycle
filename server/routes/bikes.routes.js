@@ -1,14 +1,14 @@
-import express from "express"
+import express from "express";
 import {
-  getUserBikes,
-  getUserBikeById
-} from "../controllers/bikes.js"
+  getBikes,
+  getBikeById
+} from "../controllers/bikes.js";
 
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/user", getUserBikes)
-router.get("/user/:id", getUserBikeById)
+router.get("/", getBikes);
+router.get("/:bikeID", getBikeById);
 
 
-export default router
+export default router;

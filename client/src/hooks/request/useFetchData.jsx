@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
  * @param {function(): Promise<APIResponse>} api 
  * @returns 
  */
-function useFetchData(api) {
+function useFetchData(api, args=[]) {
   const [data, setData] = useState(null)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
@@ -20,17 +20,17 @@ function useFetchData(api) {
       try {
         setIsLoading(true)
         
-        const {respData, status} = await api()
+        const resp = await api(...args)
 
-        setData(respData.data)
-        setMessage(respData.message)
-        setError(respData.error)
-        setCode(status)
+        setData(resp.data)
+        setMessage(resp.message)
+        setError(resp.error)
+        setCode(resp.code)
 
         setIsLoading(false)
       } catch (error) {
-        setIsLoading('')
-        setIsLoading('')
+        setError('')
+        setMessage('')
         setIsLoading(false)
 
         throw (error)

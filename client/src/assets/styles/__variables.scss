@@ -14,65 +14,78 @@ $product-main:          #FF6B00;
 $noir:                  #171717;
 $blanche:               #fff;
 
-     // BG
+$error:                 red;
+$success:               green;
+
+        /* Main */
 $bg-body:               $beige;
-$bg-navbar:             $blue;
 
-$bg-card-dark:          $blue;
-$bg-card-light:         $beige;
-
-$bg-input:              $blanche;
-
-$bg-btn-prm:            $product-main;
-$bg-btn-prm-hover:      darken($product-main, 5%);
-
-$bg-navbar:             $blue;
-
-        // Side
-$bg-menu:               $gold;
-$bg-menu-list:          $beige;
-$bg-menu-item:          $gold;
-$bg-menu-item-hover:    $product-main;
-
-        // Map
+        /* Map */
 $bg-map:                $noir;
 
-    // FONTS
-
+        /* Texts */
 $color-title:           lighten($product-main, 20%);
 $color-text:            $noir;
 $color-text-dark:       $blanche;
 $color-error:           $product-main;
 
-$color-input:           $noir;
-$color-placeholder:     lighten($noir, 30%);
-
-        // Nav-link
+        /* Navigation */
 $color-navlink:         $gold;
 $color-navlink-hover:   $product-main;
 
-        // Btn
+$bg-navbar:             $blue;
+$bg-nav-item-hover:     $product-main;
+
+        /* Menu */
+$bg-menu:               $gold;
+$bg-menu-list:          $beige;
+$bg-menu-item:          $gold;
+$bg-menu-item-hover:    $product-main;
+        
+        /* Buttons */
 $color-btn-prm:         $blanche;
 
-        // Other
-$color-input:           $blanche;
-$color-input-placeholder:lighten($blanche, 30%);
-// $color-input-placeholder: color.adjust($blanche, $lightness: 30%);
+$bg-btn-prm:            $product-main;
+$bg-btn-prm-hover:      darken($product-main, 5%);
+$bg-btn-prm-disabled:   darken($product-main, 30%);
 
+        /* Links */
+$color-link:            $product-main;
+
+        /* Inputs */
+$color-input:           $noir;
+$color-input-placeholder:lighten($noir, 30%);
+
+$bg-input:              $blanche;
+
+        /* Cards */
+$bg-card-dark:          $blue;
+$bg-card-light:         $beige;
+
+$bg-card-login:         $blue;
+
+        /* Message Error - Success */
+$color-error:           $error;
+$color-success:         $success;
 
 //////////////////////////////////////
 //             SPACES               //
 //////////////////////////////////////
 
-$input-margin:          0 0 1rem 0;
+$mar-input:             0 0 1rem 0;
+$pad-input:             .5rem 1rem;
 
-$button-padding:        .375rem 2rem;
+$mar-message:           .375rem 0;
+
+$pad-button:            .375rem 2rem;
 
 //////////////////////////////////////
 //             RADIUS               //
 //////////////////////////////////////
 
-$radius-button:         5px;
+$rad-button:            5px;
+$rad-input:             5px;
+$rad-card-lg:           10px;
 
 //////////////////////////////////////
 //              TEXT                //
