@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 /**
  * ### Fetch Data
@@ -9,38 +9,38 @@ import { useEffect, useState } from 'react'
  * @returns 
  */
 function useFetchData(api, args=[]) {
-  const [data, setData] = useState(null)
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
-  const [code, setCode] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState(null);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [code, setCode] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         
-        const resp = await api(...args)
+        const resp = await api(...args);
 
-        setData(resp.data)
-        setMessage(resp.message)
-        setError(resp.error)
-        setCode(resp.code)
+        setData(resp.data);
+        setMessage(resp.message);
+        setError(resp.error);
+        setCode(resp.code);
 
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (error) {
-        setError('')
-        setMessage('')
-        setIsLoading(false)
+        setError('');
+        setMessage('');
+        setIsLoading(false);
 
-        throw (error)
+        throw (error);
       }
     }
 
-    fetchData()
+    fetchData();
   }, [])
 
-  return {data, message, error, code, isLoading}
+  return {data, message, error, code, isLoading, setData};
 }
 
-export default useFetchData
+export default useFetchData;

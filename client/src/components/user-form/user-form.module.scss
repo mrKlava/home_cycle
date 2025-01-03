@@ -1,0 +1,25 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  &Inputs {
+    width: 100%;
+
+    margin-bottom: 1rem;
+
+    &>* {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.errorMessage {
+  text-align: center;
+}

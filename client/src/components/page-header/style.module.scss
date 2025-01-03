@@ -1,0 +1,9 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.header {
+  height: 200px;
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 2rem;
+}

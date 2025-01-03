@@ -1,34 +1,22 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { BikeList, PageHeader } from '../../components';
+import { ButtonBikeNew } from '../../ui';
 
-import { useFetchData } from '../../hooks'
-import { BikeServices } from '../../services'
+import { BUTTONS, LINKS, PAGES } from '../../constants';
 
-import { Title, ButtonBikeNew } from '../../ui'
-
-import { LINKS, PAGES } from '../../constants'
-
+/**
+ * ### 
+ */
 function BikesPage() {
-  const {data: bikes, isLoading} = useFetchData(BikeServices.getBikes)
-
-  useEffect(() => {console.log(bikes)},[bikes])
   return (
-    <main>
-      <Title>{PAGES.BIKES.TITLE}</Title>
-      <ButtonBikeNew />
-      { isLoading 
-      ? <p>Loading...</p> 
-      : (
-        bikes && bikes.map((bike) => {
-          return (
-            <Link key={bike.bike_id} to={LINKS.BIKE.PATH + "/" + bike.bike_id}>
-              {bike.nickname}
-            </Link>
-          )
-        })
-      )}
-    </main>
+    <div>
+      <PageHeader title={PAGES.BIKES.TITLE} />
+      <div className='container'>
+        <ButtonBikeNew navigateTo={LINKS.BIKE_NEW.PATH} label={BUTTONS.BIKE_ADD} />
+        <BikeList />
+        <ButtonBikeNew navigateTo={LINKS.BIKE_NEW.PATH} label={BUTTONS.BIKE_ADD} />
+      </div>
+    </div>
   )
 }
 
-export default BikesPage
+export default BikesPage;

@@ -39,6 +39,10 @@ const LINKS = {
     'TEXT': 'intervention',
     'PATH': '/app/interventions'
   },
+  'INTERVENTION_NEW': {
+    'TEXT': 'take intervention',
+    'PATH': '/app/interventions/new'
+  },
   'INVOICES': {
     'TEXT': 'invoices',
     'PATH': '/app/invoices'

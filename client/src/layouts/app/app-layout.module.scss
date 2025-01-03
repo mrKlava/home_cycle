@@ -1,6 +1,9 @@
 @use '../../assets/styles/__variables.scss' as *;
 
 .app {
+  &Dark {
+    background-color: black;
+  }
   main {
     margin-top: 3rem;  
   }

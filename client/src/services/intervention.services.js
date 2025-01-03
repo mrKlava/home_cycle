@@ -1,6 +1,6 @@
-import { makeRequest } from "../utils/axios"
+import { makeRequest } from "../utils/axios";
 
-const BASE_URL = '/interventions/'
+const BASE_URL = '/interventions/';
 
 const InterventionServices = {
 
@@ -9,12 +9,13 @@ const InterventionServices = {
    */
   async getInterventions() {
     try {
-      const resp = await makeRequest({ url: BASE_URL })
+      const resp = await makeRequest({ url: BASE_URL });
 
-      return resp
+      return resp;
     } catch (err) {
-      console.log(err)
-      throw err
+      console.log(err);
+
+      throw err;
     }
   },
 
@@ -24,12 +25,13 @@ const InterventionServices = {
    */
   async getInterventionById(id) {
     try {
-      const resp = await makeRequest({ url: BASE_URL + id })
+      const resp = await makeRequest({ url: BASE_URL + id });
 
-      return resp
+      return resp;
     } catch (err) {
-      console.log(err)
-      throw err
+      console.log(err);
+      
+      throw err;
     }
   },
 }

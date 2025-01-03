@@ -2,12 +2,11 @@
 
 .message {
   width: 100%;
-  min-height: calc(1rem + 2px);
+  min-height: calc($text-sm + 2px);
   margin: $mar-message;
 
-  
   &Content {
-    font-size: $text-base;
+    font-size: $text-sm;
   }
 
   &Error {

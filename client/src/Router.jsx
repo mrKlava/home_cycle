@@ -1,31 +1,46 @@
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
-import { useAuthContext } from './hooks'
+import { useAuthContext } from './hooks';
 
-import { AppLayout, HomeLayout } from './layouts'
+import { AppLayout, BikesLayout, HomeLayout, InterventionsLayout } from './layouts';
 
-import { LoginPage, HomePage, RegisterPage, MainPage, ProfilePage, InterventionsPage, InterventionPage, BikesPage, BikePage, InvoicesPage, InvoicePage, BikeNewPage } from './pages';
+import {
+  LoginPage,
+  HomePage,
+  RegisterPage,
+  MainPage,
+  ProfilePage,
+  InterventionsPage,
+  InterventionPage,
+  BikesPage,
+  BikePage,
+  InvoicesPage,
+  InvoicePage,
+  BikeNewPage,
+  InterventionNewPage
+} from './pages';
+import InterventionContextProvider from './context/interventionContext';
 
 /**
  * Wrapper function to protect routes where user must be authenticated
  */
 const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useAuthContext()
+  const { currentUser } = useAuthContext();
 
-  if (!currentUser) return <Navigate to="/login" />   // if user is auth -> redirect to /login
+  if (!currentUser) return <Navigate to="/login" />;   // if user is auth -> redirect to /login
 
-  return children
+  return children;
 }
 
 /**
  * Wrapper function to protect routes from users authenticated
  */
 const AuthRoute = ({ children }) => {
-  const { currentUser } = useAuthContext()
+  const { currentUser } = useAuthContext();
 
-  if (currentUser) return <Navigate to="/app" />       // if user is auth -> redirect to / 
+  if (currentUser) return <Navigate to="/app" />;      // if user is auth -> redirect to / 
 
-  return children
+  return children;
 }
 
 /**
@@ -73,6 +88,7 @@ const router = createBrowserRouter([
       },
       {
         path: "bikes",
+        element: <BikesLayout />,
         children: [
           {
             index: true,
@@ -90,10 +106,19 @@ const router = createBrowserRouter([
       },
       {
         path: "interventions",
+        element: <InterventionsLayout />,
         children: [
           {
             index: true,
             element: <InterventionsPage />
+          },
+          {
+            path: "new",
+            element: (
+              <InterventionContextProvider>
+                <InterventionNewPage />
+              </InterventionContextProvider>
+            )
           },
           {
             path: ":id",
@@ -133,4 +158,4 @@ const Router = ({ children }) => {
   )
 }
 
-export default Router
+export default Router;

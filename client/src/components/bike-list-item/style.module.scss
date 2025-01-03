@@ -1,0 +1,35 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.bike {
+  width: 100%;
+
+  background: $bg-bike-card;
+  margin: .5rem 0;
+  padding-right: .5rem;
+  border-radius: 5px;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  
+  transition: background linear .1s;
+  
+  &:hover {
+    background: $bg-bike-card-hover;
+  }
+  
+  &Link {
+    width: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+    padding: .5rem;
+    
+    color: $color-bike-card;
+  }
+}

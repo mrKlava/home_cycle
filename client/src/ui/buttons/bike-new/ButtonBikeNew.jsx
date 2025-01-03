@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../..';
 import { BUTTONS, LINKS } from '../../../constants';
 
-function ButtonBikeNew() {
+function ButtonBikeNew({navigateTo, label}) {
   const navigate = useNavigate();
 
-  const handleClick = () => navigate(LINKS.BIKE_NEW.PATH);
+  const handleClick = () => navigate(navigateTo);
   
   return (
-    <Button onClick={handleClick}>{BUTTONS.BIKE_ADD}</Button>
+    <Button onClick={handleClick}>{label}</Button>
   )
 }
 

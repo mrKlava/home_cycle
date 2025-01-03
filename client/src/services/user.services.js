@@ -1,6 +1,7 @@
-import { makeRequest } from "../utils/axios"
+import { makeRequest } from "../utils/axios";
 
-const BASE_URL = '/users/'
+const BASE_URL = '/users';
+
 
 const UserServices = {
   /**
@@ -10,7 +11,7 @@ const UserServices = {
    */
   async getUserData(userID) {
     try {
-      const resp = await makeRequest({ url: BASE_URL + userID });
+      const resp = await makeRequest({ url: `${BASE_URL}/${userID}` });
 
       return resp;
     } catch (err) {

@@ -31,6 +31,9 @@ const PAGES = {
   'INTERVENTION': {
     'TITLE': 'intervention'
   },
+  'INTERVENTION_NEW': {
+    'TITLE': 'new intervention'
+  },
   'INVOICES': {
     'TITLE': 'invoices'
   },
@@ -39,6 +42,6 @@ const PAGES = {
   },
 }
 
-Object.freeze(PAGES)
+Object.freeze(PAGES);
 
-export default PAGES
+export default PAGES;

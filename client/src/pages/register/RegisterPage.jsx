@@ -67,7 +67,7 @@ function RegisterPage() {
     const value = e.target.value;
 
     // TO DO: Add validation logic
-    console.log({[key]: value});
+    console.log({ [key]: value });
   }
 
   /**
@@ -77,20 +77,24 @@ function RegisterPage() {
     e.preventDefault();
     setErrorText('')
 
-    // check if inputs are valid
+    // check if inputs are valid, if not do not send request and set error
     const error = isInputsValid()
     if (error) return setErrorText(error);
 
     // try to create account
     try {
+      // if user is created redirect to login page
       const isCreated = await register(inputs);
-
       if (isCreated) navigate('/login');
+
     } catch (err) {
       console.log(err);
     }
   }
 
+  /**
+   * This function will check if inputs are valid, if not will return error string
+   */
   const isInputsValid = () => {
     // check if we all required inputs 
     for (const [key, value] of Object.entries(inputs)) {
@@ -100,7 +104,7 @@ function RegisterPage() {
     // handle password
     if (inputs.password.length < 8) return ERRORS.PASSWORD_SHORT;
     if (inputs.password !== inputs.rePassword) return ERRORS.PASSWORD_NOT_MATCH;
- 
+
     return '';
   }
 
@@ -113,7 +117,7 @@ function RegisterPage() {
      */
     const getCountryList = async () => {
       try {
-        const {data} = await CountryServices.getCountries();
+        const { data } = await CountryServices.getCountries();
 
         setCountries(data);
       } catch (err) {
@@ -124,33 +128,33 @@ function RegisterPage() {
     getCountryList();
   }, [])
 
+  /**
+   * Gets list of available cities
+   */
+  useEffect(() => {
+    // reset city related data when we changed country
+    setInputs(prev => ({ ...prev, city: 0 }));
+    setCities([]);
+
+    // if we did not select country do not fetch cities
+    if (countrySelected == 0) return;
+
     /**
-     * Gets list of available cities
+     * Will fetch cities for selected country
      */
-    useEffect(() => {
-      // reset city related data when we changed country
-      setInputs(prev => ({...prev, city: 0}));
-      setCities([]);
+    const getCities = async () => {
+      try {
+        const { data } = await CountryServices.getCountryCities(countrySelected);
 
-      // if we did not select country do not fetch cities
-      if (countrySelected == 0) return;
-
-      /**
-       * Will fetch cities for selected country
-       */
-      const getCities = async () => {
-        try {
-          const {data} = await CountryServices.getCountryCities(countrySelected);
-  
-          setCities(data);
-        } catch (err) {
-          console.log(err);
-        }
+        setCities(data);
+      } catch (err) {
+        console.log(err);
       }
+    }
 
-      // fetch cities
-      getCities();
-    }, [countrySelected])
+    // fetch cities
+    getCities();
+  }, [countrySelected])
 
 
   return (
@@ -269,7 +273,6 @@ function RegisterPage() {
                   value={inputs.rePassword}
                   required
                 />
-
               </FormRow>
 
             </div>
@@ -285,10 +288,10 @@ function RegisterPage() {
             </div>
           </form>
 
-          <MessageText 
-            className={style.errorMessage} 
-            text={authError || errorText} 
-            isError={true} 
+          <MessageText
+            className={style.errorMessage}
+            text={authError || errorText}
+            isError={true}
           />
         </div>
       </div>

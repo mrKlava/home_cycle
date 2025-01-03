@@ -20,6 +20,7 @@ const UserQueries = {
       throw err
     }
   },
+
   /**
    * Finds user by provided id
    * @param {number} id 
@@ -58,6 +59,46 @@ const UserQueries = {
       throw err
     }
   },
+
+  /**
+   * Finds user by provided id
+   * @param {number} id 
+   * @returns {object} returns user
+   */
+  async getUserDataById(id) {
+    const q = `
+    SELECT * 
+    FROM user_data
+    WHERE userId = ?;`
+
+    try {
+      const [rows] = await db(q, id)
+
+      return rows[0]
+    } catch (err) {
+      throw err
+    }
+  },
+  /**
+   * Finds user by provided id
+   * @param {string} email 
+   * @returns {object} returns user
+   */
+  async getUserByEmail(email) {
+    const q = `
+    SELECT * 
+    FROM users
+    WHERE email = ?;`
+
+    try {
+      const [rows] = await db(q, email)
+
+      return rows[0]
+    } catch (err) {
+      throw err
+    }
+  },
+
   /**
    * Create new user
    * @param {string} email 

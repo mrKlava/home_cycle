@@ -1,13 +1,14 @@
 const logRequestMiddleware = async (req, res, next) => {
   try {
     const { method, url, params, body } = req
-    const date = new Date().toLocaleDateString('en-GB')
+    const date = new Date().toLocaleDateString('en-GB');
+    const time = new Date().toLocaleTimeString('en-GB');
+      
+    console.log(time, method, url, params, body);
   
-    console.log(date, method, url, params, body)
-  
-    return next()
+    return next();
   } catch (err) {
-    return next(err)
+    return next(err);
   }
 }
 

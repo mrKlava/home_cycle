@@ -13,8 +13,8 @@ const authMiddleware = async (req, res, next) => {
     if (!token) return res.status(401).json({error: RESPONSES.ERRORS.NOT_AUTHENTICATED})
     
     jwt.verify(token, process.env.SECRET_JWT, (err, user) => {
-      if (err) return res.status(401).json({error: RESPONSES.ERRORS.FAILED_JWT})
-      
+      if (err) return res.status(401).json({error: RESPONSES.ERRORS.FAILED_JWT});
+
       res.locals.user = user;
 
       return next();

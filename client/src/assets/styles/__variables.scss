@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@300;400;700&family=Inria+Sans:ital,wght@0,400;0,700;1,300&family=Inter:wght@300;700&family=Karantina:wght@300;400;700&display=swap');
 
 
@@ -18,53 +20,83 @@ $error:                 red;
 $success:               green;
 
         /* Main */
+
 $bg-body:               $beige;
 
         /* Map */
+
 $bg-map:                $noir;
 
         /* Texts */
-$color-title:           lighten($product-main, 20%);
+
+
+$color-title:           color.adjust($product-main, $lightness: 30%);
 $color-text:            $noir;
 $color-text-dark:       $blanche;
 $color-error:           $product-main;
 
         /* Navigation */
+
 $color-navlink:         $gold;
 $color-navlink-hover:   $product-main;
 
 $bg-navbar:             $blue;
 $bg-nav-item-hover:     $product-main;
 
+        /* Summary */
+$bg-summary:            $blue;
+$clr-summary-text:      $blanche;
+$clr-summary-title:     $gold;
+
+
         /* Menu */
+
 $bg-menu:               $gold;
 $bg-menu-list:          $beige;
 $bg-menu-item:          $gold;
 $bg-menu-item-hover:    $product-main;
         
         /* Buttons */
+
 $color-btn-prm:         $blanche;
 
 $bg-btn-prm:            $product-main;
-$bg-btn-prm-hover:      darken($product-main, 5%);
-$bg-btn-prm-disabled:   darken($product-main, 30%);
+$bg-btn-prm-hover:      color.adjust($product-main, $lightness: -5%);
+$bg-btn-prm-disabled:   color.adjust($product-main, $lightness: -30%);
+
+        /* Spinner */
+
+$bg-spinner:            $blanche;
+$color-spinner:         $product-main;
 
         /* Links */
+
 $color-link:            $product-main;
 
         /* Inputs */
+
 $color-input:           $noir;
-$color-input-placeholder:lighten($noir, 30%);
+$color-input-placeholder:color.adjust($noir, $lightness: 30%);
 
 $bg-input:              $blanche;
 
-        /* Cards */
-$bg-card-dark:          $blue;
-$bg-card-light:         $beige;
+$bg-toggle:             $blanche;
+$bg-toggle-checked:     $product-main;
 
-$bg-card-login:         $blue;
+        /* Cards */
+
+$bg-bike-card:          $blue;
+$bg-bike-card-hover:    color.adjust($bg-bike-card, $lightness: 10%);
+$color-bike-card:       $blanche;
+
+$bg-service-card:          $blue;
+$bg-service-card-hover:    color.adjust($bg-bike-card,$lightness: 10%);
+$bg-service-card-selected: $product-main;
+$clr-service-card:         $blanche;
+$rad-service-card:         10px;
 
         /* Message Error - Success */
+
 $color-error:           $error;
 $color-success:         $success;
 

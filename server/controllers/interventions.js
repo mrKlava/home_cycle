@@ -26,7 +26,7 @@ export const getInterventions = async (req, res, next) => {
   }
 }
 
-export const getInterventionById = async (req, res, next) => {
+export const getIntervention = async (req, res, next) => {
   try {
     // get bike and check if 
     const paramInterventionId = RequestTools.getStringParam(req, 'interventionID');

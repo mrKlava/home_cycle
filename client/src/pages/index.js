@@ -13,6 +13,7 @@ export { default as BikeNewPage } from "./bike-new/BikeNewPage";
 
 export { default as InterventionsPage } from "./interventions/InterventionsPage";
 export { default as InterventionPage } from "./intervention/InterventionPage";
+export { default as InterventionNewPage } from "./intervention-new/InterventionNewPage";
 
 export { default as InvoicesPage } from "./invoices/InvoicesPage";
 export { default as InvoicePage } from "./invoice/InvoicePage";

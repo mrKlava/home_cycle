@@ -7,10 +7,16 @@ const RESPONSES = {
     
     'NO_COUNTRY': 'No country found',
     'NO_CITY': 'No city found',
-    'NO_BIKE': 'No bike found',
     'NO_USER': 'No user found',
     'NO_INTERVENTION': 'No intervention found',
     'NO_INVOICE': 'No invoice found',
+    'NO_BIKE': 'No bike found',
+    'NO_SERVICE': 'No services found',
+    'NO_PRODUCT': 'No products found',
+    
+    'BIKE_CREATED': 'Bike was created',
+    'BIKE_UPDATED': 'Bike was created',
+    'BIKE_DELETED': 'Bike was deleted',
   },
   'ERRORS': {
     'INCORRECT_PASSWORD': 'Incorrect password',
@@ -25,6 +31,9 @@ const RESPONSES = {
     'NO_PARAM': 'Param is missing',
     'MISSING_PARAM': 'Missing params',
     'USER_EXISTS': 'This email already is taken',
+
+    'BIKE_CREATE_FAIL': 'Failed to create bike',
+    'BIKE_UPDATE_FAIL': 'Failed to update bike',
   }
 };
 

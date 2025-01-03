@@ -33,7 +33,7 @@ export const login = async (req, res, next) => {
     if (!checkPassword) return res.status(200).json({ error: RESPONSES.ERRORS.INCORRECT_PASSWORD });
 
     const { hash, ...currentUser } = user // extract user object without hashed password
-    const token = jwt.sign({ id: user.user_id, role: 'client' }, process.env.SECRET_JWT, { expiresIn: '1day' }); // create token using user id 
+    const token = jwt.sign({ id: user.user_id, role: 'client'}, process.env.SECRET_JWT, { expiresIn: '1day' }); // create token using user id 
 
     return res.cookie("accessToken", token, {
       secure: true,

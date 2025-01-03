@@ -1,30 +1,22 @@
+import { useInterventionsContext } from "../../hooks";
 
-import { useFetchData } from "../../hooks";
-import { InterventionServices } from "../../services";
+import { InterventionList, PageHeader } from "../../components";
+import { ButtonBikeNew } from "../../ui";
 
-import { Title } from "../../ui";
-
-import { PAGES } from "../../constants";
-
+import { BUTTONS, LINKS, PAGES } from "../../constants";
 
 function InterventionsPage() {
-  const {data: interventions, isLoading} = useFetchData(InterventionServices.getInterventions);
+  const { interventions } = useInterventionsContext();
 
   return (
-    <main className="main">
-      <Title>{PAGES.INTERVENTIONS.TITLE}</Title>
-      { isLoading 
-      ? <p>Loading...</p> 
-      : (
-        interventions && interventions.map((intervention) => {
-          return (
-            <Link key={intervention.intervention_id} to={LINKS.INTERVENTION.PATH + "/" + intervention.intervention_id}>
-              {intervention.intervention_id}
-            </Link>
-          )
-        })
-      )}
-    </main>
+    <div>
+      <PageHeader title={PAGES.INTERVENTIONS.TITLE} />
+      <div className='container'>
+        <ButtonBikeNew navigateTo={LINKS.INTERVENTION_NEW.PATH} label={BUTTONS.INTERVENTION_ADD}/>
+        <InterventionList />
+        <ButtonBikeNew navigateTo={LINKS.INTERVENTION_NEW.PATH} label={BUTTONS.INTERVENTION_ADD}/>
+      </div>
+    </div>
   );
 }
 

@@ -10,7 +10,11 @@ export { default as FormRow } from './form/row/FormRow'
 export { default as InputText } from './inputs/text/InputText'
 export { default as InputTextarea } from './inputs/textarea/InputTextarea'
 export { default as InputSelect } from './inputs/select/InputSelect'
+export { default as InputToggle } from './inputs/toggle/InputToggle'
+
 
 export { default as MessageText } from './message-status/MessageStatus'
 
 export { default as Title } from './titles/page/Title'
+
+export { default as LoadingSpinner } from './loading/spinner/LoadingSpinner'

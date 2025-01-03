@@ -1,0 +1,51 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.service {
+  flex: 1 1 calc(33.333% - 1rem);
+  max-width: calc(33.333% - 1rem);
+  background: $bg-service-card;
+  color: $clr-service-card;
+
+  padding: 1rem;
+
+  border-radius: $rad-service-card;
+
+  transition: background .2s linear;
+
+  &:hover {
+    background: $bg-service-card-hover;
+  }
+
+  &Title {
+    color: $gold;
+    margin-bottom: .5rem;
+  }
+
+  &Image {
+    background-color: pink;
+    width: 100%;
+    height: 100px;
+    margin-bottom: .5rem;
+  }
+
+  &Info {
+    display: flex;
+    justify-content: space-between;
+
+    gap: .5rem;
+
+    margin-bottom: .5rem;
+  }
+
+  &Actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+  }
+
+  &.selected {
+    background-color: $bg-service-card-selected;
+  }
+}

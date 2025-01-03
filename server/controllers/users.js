@@ -30,7 +30,9 @@ export const getUserByID = async (req, res, next) => {
 
     if (!id) return res.status(200).json({error: RESPONSES.ERRORS.NO_PARAM});
 
-    const user = await UserQueries.getUserById(id);
+    const user = await UserQueries.getUserDataById(id);
+
+    console.log(user)
 
     if (!user) res.status(200).json({message: RESPONSES.MESSAGES.NO_USER});
 

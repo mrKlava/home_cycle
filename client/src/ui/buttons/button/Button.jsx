@@ -1,4 +1,4 @@
-import style from './button.module.scss';
+import style from './style.module.scss';
 
 /**
  * ### Button Component
@@ -13,7 +13,7 @@ import style from './button.module.scss';
  * @returns 
  */
 function Button({ children, onClick, className, forwardRef, isDisabled }) {
-  const classes = className ? className + `${style.btn_prm} ${className}` : style.btn_prm;
+  const classes = className ? `${style.btn_prm} ${className}` : style.btn_prm;
 
   return (
     <button onClick={onClick} className={classes} ref={forwardRef} disabled={isDisabled} >

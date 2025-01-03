@@ -1,0 +1,11 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.profile {
+  &Form {
+    margin-bottom: 3rem;
+  }
+  &Password {
+    margin-bottom: 3rem;
+  }
+}
+

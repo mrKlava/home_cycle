@@ -3,6 +3,8 @@ import { Button } from '../..';
 
 import { BUTTONS } from '../../../constants';
 
+import style from './style.module.scss';
+
 /**
  * ### Back Button 
  * 
@@ -14,7 +16,7 @@ function ButtonBack() {
   const navigate = useNavigate();
 
   return (
-    <Button onClick={() => navigate(-1)}>
+    <Button className={style.btnBack} onClick={() => navigate(-1)}>
       {BUTTONS.BACK}
     </Button>
   )
