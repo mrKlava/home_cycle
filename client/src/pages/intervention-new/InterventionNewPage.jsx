@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { InterventionFrom, PageHeader } from '../../components';
+import { CartAside, InterventionFrom, PageHeader } from '../../components';
 import { ButtonBack } from '../../ui';
 
 import { LINKS, PAGES } from '../../constants';
 
 import style from './style.module.scss';
-import { useNewInterventionContext } from '../../hooks';
 
 /**
  * ### New Bike Page
@@ -16,8 +15,6 @@ import { useNewInterventionContext } from '../../hooks';
  */
 function InterventionNewPage() {
   const { TITLE } = PAGES.INTERVENTION_NEW;
-
-  const {servicesAdded, services} = useNewInterventionContext();
 
   // used to render form errors or messages
   const [messageText, setMessageText] = useState('');
@@ -83,30 +80,7 @@ function InterventionNewPage() {
           <ButtonBack />
           <InterventionFrom interventionData={intervention} />
         </div>
-        <aside className={style.summary}>
-          <h2>Cart</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                
-              }
-              <tr>
-                <td>Name</td>
-                <td>Quantity</td>
-                <td>Price</td>
-              </tr>
-            </tbody>
-          </table>
-          <h3>Total Price: <span>0.00</span> EUR</h3>
-          <h3>Total Duration: <span>0</span> min</h3>
-        </aside>
+        <CartAside />
       </div>
     </div>
   )

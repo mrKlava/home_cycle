@@ -1,14 +1,17 @@
+import { Link } from "react-router-dom";
+
 import { useFetchData } from "../../hooks";
 import { InvoiceServices } from "../../services";
 
 import { Title } from "../../ui";
 
-import { PAGES } from "../../constants";
+import { PAGES, LINKS } from "../../constants";
 
 
 
 function InvoicesPage() {
   const {data: invoices, isLoading} = useFetchData(InvoiceServices.getInvoices);
+  
   return (
     <main className="main">
       <Title>{PAGES.INVOICES.TITLE}</Title>
@@ -27,4 +30,4 @@ function InvoicesPage() {
   )
 }
 
-export default InvoicesPage
+export default InvoicesPage;

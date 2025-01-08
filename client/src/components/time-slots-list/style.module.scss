@@ -1,0 +1,16 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.slots {
+  &Inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem
+  }
+  &List {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+}

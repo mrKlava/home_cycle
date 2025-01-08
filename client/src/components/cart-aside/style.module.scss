@@ -1,0 +1,20 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.summary {
+  background: $bg-summary;
+  color: $clr-summary-text;
+
+  position: sticky;
+  top: 3rem;
+  
+  min-width: 300px;
+  height: calc(100vh - 3rem);
+
+  margin-top: -2rem;
+  padding: 1rem;
+  
+  th, h1, h2, h3, h4, h5, h6 {
+    color: $clr-summary-title;
+    text-align: start;
+  }
+}

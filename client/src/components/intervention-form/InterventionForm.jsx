@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import { ServicesList } from '..';
+import { useNewInterventionContext } from '../../hooks';
+
+import { ProductsList, ServicesList, TimeSlotsList } from '..';
 import { Button, FormRow, InputSelect, InputTextarea, LoadingSpinner, MessageText, Title } from '../../ui';
 
 import { BUTTONS, INPUTS } from '../../constants';
 
 import style from './style.module.scss';
-import { useNewInterventionContext } from '../../hooks';
 
 
 /**
-  * ### Bike form component
+  * ### Intervention form component
   * 
-  * Used to create or update bike 
+  * Used to create new intervention
   * 
  */
 function InterventionForm({
@@ -29,7 +30,11 @@ function InterventionForm({
   // import constant bike text
   const { BIKE, DESCRIPTION, TECHNICIAN } = INPUTS.INTERVENTION;
 
-  const {isLoading, bikes, services, products, technicians} = useNewInterventionContext();
+  const { isLoading, bikes, services, products, technicians } = useNewInterventionContext();
+
+  const [technicianSelected, setTechnicianSelected] = useState(null);
+
+  const [timeSlots, setTimeSlots] = useState([]);
 
   // form inputs values
   const [inputs, setInputs] = useState(interventionData);
@@ -44,6 +49,11 @@ function InterventionForm({
     let value = e.target.value;
 
     setInputs((prev) => ({ ...prev, [key]: value }));
+
+    if (key === 'technicianId') {
+      console.log(value)
+      setTechnicianSelected(value)
+    }
   }
 
   useEffect(() => {
@@ -52,6 +62,7 @@ function InterventionForm({
 
   return (
     <form className={style.form}>
+
       <Title>Bike</Title>
       {
         isLoading
@@ -81,25 +92,24 @@ function InterventionForm({
             </FormRow>
           </div>)
       }
+
       <Title>Services</Title>
+      <p>Total duration of intervention can not be longer than 4 hours (240 minute)</p>
       <div className={style.serviceList}>
-      {
-        isLoading
-          ? <LoadingSpinner />
-          : <ServicesList services={services}/>
+        {
+          isLoading
+            ? <LoadingSpinner />
+            : <ServicesList services={services} />
         }
-        </div>
+      </div>
 
       <Title>Products</Title>
       {
         isLoading
           ? <LoadingSpinner />
-          : products && products.map(product => {
-            return (
-              <div key={product.productId}>{product.name}</div>
-            )
-          })
+          : <ProductsList products={products} />
       }
+
       <Title>Intervention</Title>
       {
         isLoading
@@ -117,10 +127,11 @@ function InterventionForm({
                 {technicians && technicians.map((technician) => <option key={technician.technicianId} value={technician.technicianId}>{technician.name} {technician.surname}</option>)}
               </InputSelect>
             </FormRow>
-            <h1>CALENDAR SLOTS</h1>
+
+            <TimeSlotsList />
+
           </div>)
       }
-
 
       <Button className={style.formSubmit} onClick={(e) => handleSubmit(e, inputs)} isDisabled={isDisabled}>{submitText}</Button>
       <MessageText

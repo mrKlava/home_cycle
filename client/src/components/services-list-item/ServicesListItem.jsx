@@ -4,25 +4,25 @@ import { Button } from '../../ui';
 
 import style from './style.module.scss';
 
-function ServicesListItem({ service, quantity=0 }) {
+function ServicesListItem({ service, quantity = 0 }) {
   const { addService, removeService } = useNewInterventionContext();
 
-    /**
-   * Handler for add button
-   * 
-   * @param {MouseEvent} e 
-   */
-    const handleAdd = (e) => {
-      e.preventDefault();
-  
-      addService(service);
-    }
-  
-    const handleRemove = (e) => {
-      e.preventDefault();
-  
-      removeService(service);
-    }
+  /**
+ * Handler for add button
+ * 
+ * @param {MouseEvent} e 
+ */
+  const handleAdd = (e) => {
+    e.preventDefault();
+
+    addService(service);
+  }
+
+  const handleRemove = (e) => {
+    e.preventDefault();
+
+    removeService(service);
+  }
 
   return (
     <article className={style.service}>

@@ -3,9 +3,9 @@ import { useInterventionsContext } from "../../hooks";
 
 import { Button } from "../../ui";
 
-import style from "./style.module.scss";
-
 import { LINKS } from "../../constants";
+
+import style from "./style.module.scss";
 
 /**
  * Renders list element for component `BikeList.jsx`
@@ -14,21 +14,18 @@ import { LINKS } from "../../constants";
  */
 function InterventionListItem({ intervention }) {
 
-  /**
-   * Delete btn click handler
-   */
-  const handleDelete = async () => await deleteBikeById(bike.bikeId);
 
   return (
     <article className={style.intervention}>
       <Link
-        className={style.bikeLink}
-        to={LINKS.BIKE.PATH + "/" + intervention.bikeId}
+        className={style.interventionLink}
+        to={LINKS.INTERVENTION.PATH + "/" + intervention.interventionId}
       >
-        <h3>{intervention.nickname}</h3>
-        <p>{new Date(intervention.created).toLocaleString('en-Gb')}</p>
+        <h3>{intervention.bikeNickname}</h3>
+        <p>{intervention.duration} min</p>
+        <p>{new Date(intervention.date).toLocaleString('en-Gb')}</p>
+        <p>{intervention.interventionStatus}</p>
       </Link>
-      <Button onClick={handleDelete}>delete</Button>
     </article>
   )
 }

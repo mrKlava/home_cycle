@@ -9,6 +9,7 @@ const RESPONSES = {
     'NO_CITY': 'No city found',
     'NO_USER': 'No user found',
     'NO_INTERVENTION': 'No intervention found',
+    'NO_COMMENT': 'No comments found',
     'NO_INVOICE': 'No invoice found',
     'NO_BIKE': 'No bike found',
     'NO_SERVICE': 'No services found',

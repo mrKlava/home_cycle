@@ -11,8 +11,16 @@ export { default as BikeList } from './bike-list/BikeList';
 export { default as BikeListItem } from './bike-list-item/BikeListItem';
 export { default as BikeDetails } from './bike-details/BikeDetails';
 
+export { default as InterventionList } from './intervention-list/InterventionList';
+export { default as InterventionListItem } from './intervention-list-item/InterventionListItem';
+
+export { default as CartAside } from './cart-aside/CartAside';
+
 export { default as ServicesList } from './services-list/ServicesList';
 export { default as ServicesListItem } from './services-list-item/ServicesListItem';
 
-export { default as InterventionList } from './intervention-list/InterventionList';
-export { default as InterventionListItem } from './intervention-list-item/InterventionListItem';
+export { default as ProductsList } from './products-list/ProductsList';
+export { default as ProductsListItem } from './products-list-item/ProductsListItem';
+
+export { default as TimeSlotsList } from './time-slots-list/TimeSlotsList';
+export { default as TimeSlotsListItem } from './time-slots-list-item/TimeSlotsListItem';

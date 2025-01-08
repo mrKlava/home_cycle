@@ -23,44 +23,104 @@ const InterventionContextProvider = ({ children }) => {
 
   // const new intervention
   const [servicesAdded, setServicesAdded] = useState({});
+  const [productsAdded, setProductsAdded] = useState({});
+
+  const [totalServicePrice, setTotalServicePrice] = useState(0);
+  const [totalProductPrice, setTotalProductPrice] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
+
+  const [timeSlots, setTimeSlots] = useState([])
 
   /**
    * ### Increment selected one service by one
    * 
-   * @param {object} service service id to be added
+   * @param {object} service service to be added
    */
   const addService = (service) => {
-    
-    const currentService = servicesAdded[service.serviceId] ? {...servicesAdded[service.serviceId]} : {quantity: 0, name: service.name, price: service.currentPrice};
+    const id = service.serviceId;
+    if (!id) return;
 
-    currentService.quantity = currentService.quantity + 1;
+    const currentService = servicesAdded[id]
+      ? { ...servicesAdded[id] }
+      : { quantity: 0, name: service.name, price: service.currentPrice, duration: service.duration };
 
-    console.log('current', currentService)
+    // check if service total duration is longer 4 hours, return
+    if (totalTime + service.duration > 240) return;
 
-    setServicesAdded(prev => {
-      const newState = {...prev}
-      return {...newState, ...currentService};
-    })
+    currentService.quantity += 1;
 
-    console.log(servicesAdded)
+    setServicesAdded(prev => ({ ...prev, [id]: currentService }));
   }
 
   /**
    * ### Decrement selected one service by one
    * 
-   * @param {number} serviceId service id to be removed
+   * @param {object} serviceId service to be removed
    */
-  const removeService = (serviceId) => {
-    setServicesAdded(prev => {
-      const newState = { ...prev };
+  const removeService = (service) => {
+    const id = service.serviceId;
+    if (!id) return;
 
-      const currentService = newState[serviceId];
+    const currentService = servicesAdded[id];
+    if (!currentService) return;
+    if (currentService.quantity > 1) currentService.quantity -= 1;
 
-      if (currentService > 1) newState[serviceId] -= 1;
-      if (currentService === 1) delete newState[serviceId];
 
-      return newState;
-    })
+    if (currentService.quantity === 1) {
+      setServicesAdded(prev => {
+        const newState = { ...prev };
+        delete newState[id];
+
+        return newState;
+      })
+    } else {
+      setServicesAdded(prev => ({ ...prev, [id]: currentService }));
+    }
+  }
+
+
+  /**
+ * ### Increment selected one product by one
+ * 
+ * @param {object} product product to be added
+ */
+  const addProduct = (product) => {
+    const id = product.productId;
+    if (!id) return;
+
+    const currentProduct = productsAdded[id]
+      ? { ...productsAdded[id] }
+      : { quantity: 0, name: product.name, price: product.currentPrice };
+
+    currentProduct.quantity += 1;
+
+    setProductsAdded(prev => ({ ...prev, [id]: currentProduct }));
+  }
+
+  /**
+   * ### Decrement selected one product by one
+   * 
+   * @param {object} product product to be removed
+   */
+  const removeProduct = (product) => {
+    const id = product.productId;
+    if (!id) return;
+
+    const currentProduct = productsAdded[id];
+    if (!currentProduct) return;
+    if (currentProduct.quantity > 1) currentProduct.quantity -= 1;
+
+
+    if (currentProduct.quantity === 1) {
+      setProductsAdded(prev => {
+        const newState = { ...prev };
+        delete newState[id];
+
+        return newState;
+      })
+    } else {
+      setProductsAdded(prev => ({ ...prev, [id]: currentProduct }));
+    }
   }
 
   /* Updates isLoading status */
@@ -68,9 +128,30 @@ const InterventionContextProvider = ({ children }) => {
     setIsLoading(isLoadingBikes || isLoadingServices || isLoadingProducts || isLoadingTechnicians)
   }, [isLoadingBikes, isLoadingServices, isLoadingProducts, isLoadingTechnicians]);
 
-  /* DEBUG */
+  /* Update Price and time for services cart */
+  useEffect(() => {
+    const priceServices = Object.values(servicesAdded).reduce((accumulator, { quantity, price }) => {
+      return accumulator + (quantity * price)
+    }, 0);
 
-  // useEffect(() => console.log(servicesAdded), [servicesAdded]);
+    setTotalServicePrice(priceServices);
+
+    const time = Object.values(servicesAdded).reduce((accumulator, { quantity, duration }) => {
+      return accumulator + (quantity * duration)
+    }, 0);
+
+    setTotalTime(time);
+
+  }, [servicesAdded]);
+
+  /* Update Price for products cart */
+  useEffect(() => {
+    const priceProducts = Object.values(productsAdded).reduce((accumulator, { quantity, price }) => {
+      return accumulator + (quantity * price)
+    }, 0);
+
+    setTotalProductPrice(priceProducts);
+  }, [productsAdded])
 
   // return context
   return (
@@ -82,10 +163,18 @@ const InterventionContextProvider = ({ children }) => {
         , products
         , technicians
 
+        , timeSlots
+
         , servicesAdded
+        , productsAdded
+        , totalServicePrice
+        , totalProductPrice
+        , totalTime
 
         , addService
+        , addProduct
         , removeService
+        , removeProduct
       }
     }>
       {children}
