@@ -29,7 +29,19 @@ const PAGES = {
     'TITLE': 'interventions'
   },
   'INTERVENTION': {
-    'TITLE': 'intervention'
+    'TITLE': 'intervention',
+    'REFERENCE_NO': 'Intervention reference number',
+    'STATUS': 'Intervention status',
+    'BIKE': 'Bike to be repaired',
+    'PLANNED_DATE': 'Planed intervention time',
+    'PLANNED_DURATION': 'Planed duration (minutes)',
+    'COMPLETED_DATE': 'Completed date',
+    'ADDRESS': 'Address of intervention',
+    'DETAILS_TITLE': 'Intervention details',
+    'SERVICES_TITLE': 'Services selected',
+    'PRODUCTS_TITLE': 'Products selected',
+    'COMMUNICATION_TITLE': 'Communication',
+    'TOTAL': 'Total'
   },
   'INTERVENTION_NEW': {
     'TITLE': 'new intervention'

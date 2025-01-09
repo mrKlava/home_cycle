@@ -91,7 +91,8 @@ const InterventionQueries = {
           , CONCAT(t.name, ' ', t.surname) AS technicienName
           , b.nickname AS bikeNickname
           , b.bike_id AS bikeId
-          , CONCAT(i.address_one, ', ', i.address_two, ', ', ct.name, ', ', i.zip_code,', ', cn.name) AS technicienName
+          , CONCAT(i.address_one, ', ', i.address_two, ', ', ct.name, ', ', i.zip_code,', ', cn.name) AS address
+          , s.name AS status
     FROM interventions AS i
     LEFT JOIN intervention_statuses AS s
       	ON i.status_id = s.status_id
@@ -125,7 +126,8 @@ const InterventionQueries = {
    */
   async getInterventionServicesByIdAndUserId(interventionId, userId) {
     const q = `
-    SELECT s.name
+    SELECT s.service_id AS serviceId
+          ,s.name
           ,s.duration
           ,s.description
           ,si.quantity
@@ -157,7 +159,8 @@ const InterventionQueries = {
    */
   async getInterventionProductsByIdAndUserId(interventionId, userId) {
     const q = `
-    SELECT p.name
+    SELECT p.product_id AS productId
+          ,p.name
           ,p.description
           ,pi.quantity
           ,pi.price
@@ -223,6 +226,8 @@ const InterventionQueries = {
     WHERE technicienId = ?
       AND DATE(plannedStart) = ?;
     `
+
+    console.log('date in query: ', date)
 
     try {
       const [rows] = await db(q, [technicianId, date]);

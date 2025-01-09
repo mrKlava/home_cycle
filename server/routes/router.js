@@ -13,14 +13,12 @@ import productsRoutes from './products.routes.js';
 import invoicesRoutes from './invoice.routes.js';
 
 
-
 /**
  * ### Router
  * 
  * Holds all Available routes
  */
 const router = express.Router();
-
 
 router.use("/countries",      countriesRoutes);
 

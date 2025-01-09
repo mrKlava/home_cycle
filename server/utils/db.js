@@ -69,4 +69,4 @@ const db = async (query, params = []) => {
 // Create Pool connection
 createConnection();
 
-export default db
+export default db;

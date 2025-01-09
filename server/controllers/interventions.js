@@ -122,22 +122,51 @@ export const getTimeSlots = async (req, res, next) => {
   try {
     const paramTechnicianId = RequestTools.getStringParam(req, 'technicianId');
     if (!paramTechnicianId) return res.status(200).json({ error: RESPONSES.ERRORS.NO_PARAM });
-
+    
     let providedDate = RequestTools.getStringQuery(req, 'date');
-
     const [currentDate, currentTime] = new Date().toLocaleString('en-GB').split(', ');
-    const [currentDay, currentMonth, currentYear] = currentDate.split('/');
-    const [currentHour, currentMinutes] = currentTime.split(':');
-
-    const closestAvailableHour = parseInt(currentHour) + (parseInt(currentMinutes) + 20 >= 60 ? 2 : 1);
-
-    if (!providedDate) providedDate = currentDate;
-
-    const currentUser = ResponseTools.getUserFromLocals(res);
+    
+    if (!providedDate) {
+      providedDate = currentDate.split('/').reverse().join('-');
+    } else {
+      providedDate = providedDate.split('-').reverse().join('-');
+    }
 
     const takenSlots = await InterventionQueries.getTakenSlots(paramTechnicianId, providedDate);
 
+    // const [currentDay, currentMonth, currentYear] = currentDate.split('/');
+    // const [currentHour, currentMinutes] = currentTime.split(':');
+    // const closestAvailableHour = parseInt(currentHour) + (parseInt(currentMinutes) + 20 >= 60 ? 2 : 1);
+
     const availableSlots = [];
+    const duration = 60 + 20;
+    
+    const workStart = 8;
+    const workEnd = 18;
+    
+    let availableStart = workStart;
+    let availableEnd = workEnd;
+
+    takenSlots.forEach(slot => {
+      console.log(slot)
+
+      const start = new Date(slot.plannedStart)
+      const startHour = start.getHours();
+      const startMinute = start.getMinutes();
+
+      const end = new Date(slot.plannedAvailable)
+      const endHour = end.getHours();
+      const endMinute = end.getMinutes();
+
+      console.log(startHour, startMinute)
+      console.log(endHour, endMinute)
+
+      if (availableStart < startHour) {
+        
+      }
+    })
+
+    
 
     return res.status(200).json({ data: availableSlots });
   } catch (err) {

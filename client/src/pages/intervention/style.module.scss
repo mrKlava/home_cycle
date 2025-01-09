@@ -1,0 +1,12 @@
+@use '../../assets/styles/__variables.scss' as *;
+
+.details {
+  &Container {
+
+  }
+  &Item {
+    span {
+      font-weight: 700;
+    }
+  }
+}

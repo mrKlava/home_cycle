@@ -13,7 +13,7 @@ function CartAside() {
           <tr>
             <th>Name</th>
             <th>Quantity</th>
-            <th>Price</th>
+            <th>Price EUR</th>
           </tr>
         </thead>
         <tbody>
@@ -23,7 +23,7 @@ function CartAside() {
                 <tr key={id}>
                   <td>{service.name}</td>
                   <td>{service.quantity}</td>
-                  <td>{service.price} EUR</td>
+                  <td>{service.price}</td>
                 </tr>
 
               )
@@ -34,19 +34,17 @@ function CartAside() {
               <tr>
                 <th>Total</th>
                 <td></td>
-                <td>{totalServicePrice.toFixed(2)} EUR</td>
+                <td>{totalServicePrice.toFixed(2)}</td>
               </tr>
             )
           }
           {
             Object.entries(productsAdded).map(([id, product]) => {
               return (
-
-
                 <tr key={id}>
                   <td>{product.name}</td>
                   <td>{product.quantity}</td>
-                  <td>{product.price} EUR</td>
+                  <td>{product.price}</td>
                 </tr>
 
               )
@@ -57,7 +55,7 @@ function CartAside() {
               <tr>
                 <th>Total</th>
                 <td></td>
-                <td>{totalProductPrice.toFixed(2)} EUR</td>
+                <td>{totalProductPrice.toFixed(2)}</td>
               </tr>
             )
           }
